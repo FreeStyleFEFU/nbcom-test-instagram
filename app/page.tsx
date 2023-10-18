@@ -1,7 +1,8 @@
-import { Home } from "@/views/Home/Home";
-import { PhotosResponse } from "@/api/protocol";
 import { getPhotos } from "@/api/methods";
+
 import { DEFAULT_POSTS_LIMIT } from "@/utils/constants";
+
+import { Home } from "@/views/Home/Home";
 
 export const dynamic = "force-dynamic";
 

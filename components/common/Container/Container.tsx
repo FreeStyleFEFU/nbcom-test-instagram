@@ -1,4 +1,4 @@
-import React, { FC, FunctionComponent, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 
 import styles from "./Container.module.scss";
 
