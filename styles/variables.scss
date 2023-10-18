@@ -1,0 +1,32 @@
+/* Colors
+ ========================================================================== */
+$color-black: #333333;
+$color-muted: #989898;
+
+/* Base
+ ========================================================================== */
+$root-font-size: 16px;
+
+/* Fonts weights
+ ========================================================================== */
+$fontWeightRegular: 400;
+$fontWeightMedium: 500;
+$fontWeightSemiBold: 600;
+$fontWeightBold: 700;
+
+/* Container
+ ========================================================================== */
+$container-max-width: 600px !default;
+$container-padding-horizontal: 16px !default;
+
+/* Breakpoints
+ ========================================================================== */
+$breakpoint-xxsmall: 375px !default;
+$breakpoint-xsmall: 425px !default;
+$breakpoint-small: 640px !default;
+
+/* Transitions
+ ========================================================================== */
+$transition-default-duration: 0.2s !default;
+$transition-default-timing-function: ease-out !default;
+$transition-default: $transition-default-duration $transition-default-timing-function !default;

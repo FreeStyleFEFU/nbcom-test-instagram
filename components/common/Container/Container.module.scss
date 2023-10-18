@@ -1,0 +1,10 @@
+@use '../../../styles/media' as media;
+@use '../../../styles/variables' as vars;
+
+.root {
+    box-sizing: content-box;
+    margin-right: auto;
+    margin-left: auto;
+    padding-inline: vars.$container-padding-horizontal;
+    max-width: vars.$container-max-width;
+}

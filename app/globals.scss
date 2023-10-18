@@ -1,0 +1,134 @@
+@use '../styles/utils' as utils;
+@use '../styles/media' as media;
+@use '../styles/variables' as variables;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    // don't forget to implement own active states
+    outline: none;
+}
+
+html,
+body {
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    scroll-behavior: smooth;
+    color: variables.$color-black;
+    line-height: 1.25;
+}
+
+a {
+    transition: color variables.$transition-default;
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+// Remove default margin
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+    padding: 0;
+}
+
+// Enable smooth scroll
+html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    font-size: 100%;
+}
+
+// Set core <body> defaults
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+// <a> that don't have a [class] get default styles
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+// Make images easier to work with
+img {
+    display: block;
+}
+
+img,
+svg {
+    max-width: 100%;
+}
+
+// Inherit fonts for inputs and buttons
+input,
+button,
+textarea,
+select {
+    appearance: none;
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    margin: 0;
+    border: none;
+    background: none;
+    padding: 0;
+    text-align: left;
+}
+
+// Remove all {animation}s and {transition}s for people that prefer not to see them
+@media (prefers-reduced-motion: reduce) {
+    * {
+        // sass-lint:disable-block no-important
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// Only vertical resizing of text area
+textarea {
+    resize: vertical;
+}
+
+// Limit <iframe> width
+iframe {
+    max-width: 100%;
+}
+
+// Make <fieldset> work good with {display:flex}
+fieldset {
+    min-width: 0;
+}
+
+// Make <th> only a semantic element
+th {
+    font-weight: inherit;
+    text-align: inherit;
+}
+
+[hidden] {
+    display: none;
+}

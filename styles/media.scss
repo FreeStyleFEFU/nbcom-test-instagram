@@ -1,0 +1,51 @@
+@use 'variables' as vars;
+
+@mixin vw-xxsmall-down {
+    @media (max-width: vars.$breakpoint-xxsmall - 1) {
+        @content;
+    }
+}
+
+@mixin vw-xxsmall-up {
+    @media (min-width: vars.$breakpoint-xxsmall) {
+        @content;
+    }
+}
+
+@mixin vw-xsmall-down {
+    @media (max-width: vars.$breakpoint-xsmall - 1) {
+        @content;
+    }
+}
+
+@mixin vw-xsmall-up {
+    @media (min-width: vars.$breakpoint-xsmall) {
+        @content;
+    }
+}
+
+@mixin vw-small-down {
+    @media (max-width: vars.$breakpoint-small - 1) {
+        @content;
+    }
+}
+
+@mixin vw-small-up {
+    @media (min-width: vars.$breakpoint-small) {
+        @content;
+    }
+}
+
+@mixin vw-small-only {
+    @media (min-width: vars.$breakpoint-xsmall) and (max-width: vars.$breakpoint-small - 1) {
+        @content;
+    }
+}
+
+@mixin no-touch-hover {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            @content;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+@use '../../../styles/media' as media;
+@use '../../../styles/variables' as vars;
+@use '../../../styles/utils' as utils;
+
+.root {
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+
+.header {
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 8px 40px;
+  position: relative;
+  height: 56px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.backButton {
+  @include utils.set-transition(opacity);
+
+  display: block;
+  font-size: utils.to-rem(24px);
+  left: 0;
+  line-height: 16px;
+  padding: 16px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  @include media.no-touch-hover {
+    opacity: 0.7;
+  }
+}
+
+.title {
+  font-size: utils.to-rem(18px);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,83 @@
+@use 'media' as media;
+@use 'variables' as vars;
+
+@function to-rem($size) {
+    @return ($size / vars.$root-font-size) * 1rem;
+}
+
+@function aspect-ratio($width, $height) {
+    @return ($height / $width) * 100%;
+}
+
+@mixin full-size {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin aspect-ratio-padding($width, $height) {
+    padding-bottom: aspect-ratio($width, $height);
+}
+
+@mixin full-size-image-container-base($backgroundColor: vars.$color-muted) {
+    position: relative;
+    background-color: $backgroundColor;
+    overflow: hidden;
+}
+
+@mixin full-size-image-container-padding($width, $height) {
+    padding-bottom: aspect-ratio($width, $height);
+}
+
+@mixin full-size-image-container($width, $height, $backgroundColor: vars.$color-muted) {
+    @include full-size-image-container-base($backgroundColor);
+    @include full-size-image-container-padding($width, $height);
+}
+
+@mixin set-transition(
+    $properties: (),
+    $duration: vars.$transition-default-duration,
+    $timingFunction: vars.$transition-default-timing-function
+) {
+    @if (length($properties) == 1) {
+        transition: $properties $duration $timingFunction;
+    } @else if (length($properties) > 1) {
+        transition: $duration $timingFunction;
+        transition-property: $properties;
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin full-size-image($isContain: false) {
+    @include full-size;
+
+    @if ($isContain) {
+        object-fit: contain;
+    } @else {
+        object-fit: cover;
+    }
+}
+
+@mixin set-size($width, $height: null) {
+    @if ($height != null) {
+        width: $width;
+        height: $height;
+    } @else {
+        width: $width;
+        height: $width;
+    }
+}

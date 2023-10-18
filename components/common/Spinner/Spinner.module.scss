@@ -1,0 +1,33 @@
+@use '../../../styles/media' as media;
+@use '../../../styles/variables' as vars;
+@use '../../../styles/utils' as utils;
+@use '../../../styles/animation' as animation;
+
+.root {
+    @include utils.set-transition(opacity);
+    @include animation.spinner-animation;
+    @include animation.spin-animation;
+
+    pointer-events: none;
+    color: white;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.svg {
+    animation: spin 2s linear infinite;
+}
+
+.circle {
+    fill: transparent;
+    stroke: currentColor;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 200;
+    stroke-linecap: round;
+    stroke-width: 8px;
+    display: block;
+    transform-origin: 50% 50%;
+    animation: loader-animation 1.4s ease-in-out infinite both;
+}

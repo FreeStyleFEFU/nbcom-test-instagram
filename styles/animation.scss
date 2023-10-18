@@ -1,0 +1,44 @@
+@mixin spin-animation {
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+@mixin spinner-animation {
+    @keyframes loader-animation {
+        0%,
+        25% {
+            stroke-dashoffset: 150;
+            transform: rotate(0);
+        }
+
+        50%,
+        75% {
+            stroke-dashoffset: 75;
+            transform: rotate(45deg);
+        }
+
+        100% {
+            stroke-dashoffset: 150;
+            transform: rotate(360deg);
+        }
+    }
+}
+
+@mixin shine-loader {
+    @keyframes shine-loader {
+        0% {
+            background-position: 200% 0, 300% 0;
+        }
+
+        100% {
+            background-position: -200% 0, -100% 0;
+        }
+    }
+}
