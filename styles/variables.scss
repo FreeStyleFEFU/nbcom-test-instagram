@@ -2,6 +2,9 @@
  ========================================================================== */
 $color-black: #333333;
 $color-muted: #989898;
+$color-muted-fill: #f0f0f0;
+$color-muted-fill-accent: #fafafa;
+$color-pink: #cb3161;
 
 /* Base
  ========================================================================== */
@@ -16,7 +19,7 @@ $fontWeightBold: 700;
 
 /* Container
  ========================================================================== */
-$container-max-width: 600px !default;
+$container-max-width: 1100px !default;
 $container-padding-horizontal: 16px !default;
 
 /* Breakpoints

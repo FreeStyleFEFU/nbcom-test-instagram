@@ -9,7 +9,7 @@
     @include animation.spin-animation;
 
     pointer-events: none;
-    color: white;
+    color: vars.$color-pink;
 }
 
 .hidden {

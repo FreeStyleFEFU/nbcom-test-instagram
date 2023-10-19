@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { getPhotos } from "@/api/methods";
 
@@ -9,10 +9,10 @@ import { PhotoItem } from "@/domains/posts";
 import { DEFAULT_POSTS_LIMIT } from "@/utils/constants";
 
 import { Picture } from "@/components/common/Picture/Picture";
-
-import styles from "./PhotosList.module.scss";
 import { Spinner } from "@/components/common/Spinner/Spinner";
 import { PhotoDetails } from "@/components/home/PhotoDetails/PhotoDetails";
+
+import styles from "./PhotosList.module.scss";
 
 type PhotosListProps = {
   initialItems: PhotoItem[];
@@ -27,12 +27,12 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
 
   const listRef = useRef<HTMLUListElement | null>(null);
 
-  const fetchPhotos = () => {
+  const fetchPhotos = useCallback(() => {
     if (isLoading) return;
 
     setIsLoading(true);
 
-    getPhotos({ _start: items.length, _limit: DEFAULT_POSTS_LIMIT })
+    getPhotos({ _start: items.length + 1, _limit: DEFAULT_POSTS_LIMIT })
       .then((result) => {
         setItems((prevItems) => [...prevItems, ...result]);
       })
@@ -41,7 +41,7 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
         setIsLoading(false);
         setIsNotFetchNextTime(true);
       });
-  };
+  }, [isLoading, items]);
 
   const openPhotoDetails = (photo: PhotoItem) => {
     setSelectedPhoto(photo);
@@ -98,10 +98,11 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
         ))}
       </ul>
 
-      {isLoading && (
-        <Spinner size="xlarge" classes={{ root: styles.spinner }} />
-      )}
+      {isLoading && <Spinner size="large" classes={{ root: styles.spinner }} />}
 
+      {/* В тз было написано не использовать либы для блокировки скролла */}
+      {/* По-хорошему тут бы модалочку бахнуть, но модалки его блокируют */}
+      {/* Решил вообще либы не использовать */}
       {selectedPhoto !== null && (
         <PhotoDetails
           data={selectedPhoto}

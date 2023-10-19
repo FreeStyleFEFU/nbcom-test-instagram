@@ -1,4 +1,4 @@
-export type Comment = {
+export type CommentItem = {
   postId: number;
   id: number;
   name: string;

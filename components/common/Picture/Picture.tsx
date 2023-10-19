@@ -7,21 +7,10 @@ type PictureProps = {
   src?: string;
   src2x?: string;
   alt?: string;
-  lazy?: boolean;
   classes?: Classes<ClassKey>;
 } & ImgHTMLAttributes<HTMLImageElement>;
 export const Picture: React.FunctionComponent<PictureProps> = (props) => {
-  const {
-    src,
-    src2x,
-    alt,
-    className,
-    classes,
-    lazy = true,
-    ...otherProps
-  } = props;
-
-  if (lazy) otherProps.loading = "lazy";
+  const { src, src2x, alt, className, classes, ...otherProps } = props;
 
   if (src === undefined) {
     console.warn("Image component must have src or sources property");
