@@ -1,1 +1,3 @@
-export const DEFAULT_POSTS_LIMIT = 30;
+export const DEFAULT_PHOTOS_LIMIT = 30;
+
+export const DEFAULT_PHOTOS_TOTAL = DEFAULT_PHOTOS_LIMIT * 10;

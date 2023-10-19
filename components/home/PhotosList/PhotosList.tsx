@@ -6,7 +6,7 @@ import { getPhotos } from "@/api/methods";
 
 import { PhotoItem } from "@/domains/posts";
 
-import { DEFAULT_POSTS_LIMIT } from "@/utils/constants";
+import { DEFAULT_PHOTOS_LIMIT, DEFAULT_PHOTOS_TOTAL } from "@/utils/constants";
 
 import { Picture } from "@/components/common/Picture/Picture";
 import { Spinner } from "@/components/common/Spinner/Spinner";
@@ -27,22 +27,6 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
 
   const listRef = useRef<HTMLUListElement | null>(null);
 
-  const fetchPhotos = useCallback(() => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-
-    getPhotos({ _start: items.length + 1, _limit: DEFAULT_POSTS_LIMIT })
-      .then((result) => {
-        setItems((prevItems) => [...prevItems, ...result]);
-      })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoading(false);
-        setIsNotFetchNextTime(true);
-      });
-  }, [isLoading, items]);
-
   const openPhotoDetails = (photo: PhotoItem) => {
     setSelectedPhoto(photo);
     document.body.classList.add(styles.isScrollBlocked);
@@ -53,9 +37,29 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
     document.body.classList.remove(styles.isScrollBlocked);
   };
 
-  const windowScrollHandler = () => {
-    // need add to condition items.length >= total but dont know where do get total
-    if (listRef === null || listRef.current === null) return;
+  const fetchPhotos = useCallback(() => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
+    getPhotos({ _start: items.length + 1, _limit: DEFAULT_PHOTOS_LIMIT })
+      .then((result) => {
+        setItems((prevItems) => [...prevItems, ...result]);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+        setIsNotFetchNextTime(true);
+      });
+  }, [isLoading, items.length]);
+
+  const windowScrollHandler = useCallback(() => {
+    if (
+      items.length >= DEFAULT_PHOTOS_TOTAL ||
+      listRef === null ||
+      listRef.current === null
+    )
+      return;
 
     if (isNotFetchNextTime) {
       setIsNotFetchNextTime(false);
@@ -69,13 +73,13 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
     if (window.innerHeight + 1 < seasonsPositionBottom) return;
 
     fetchPhotos();
-  };
+  }, [fetchPhotos, isNotFetchNextTime, items.length]);
 
   useEffect(() => {
     window.addEventListener("scroll", windowScrollHandler);
 
     return () => window.removeEventListener("scroll", windowScrollHandler);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [windowScrollHandler]);
 
   return (
     <div className={styles.root}>
