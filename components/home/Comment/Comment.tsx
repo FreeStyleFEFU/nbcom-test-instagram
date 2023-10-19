@@ -1,16 +1,19 @@
 import { FC } from "react";
+import clsx from "clsx";
+
 import { CommentItem } from "@/domains/comments";
 
 import styles from "./Comment.module.scss";
-import clsx from "clsx";
 
 type CommentProps = {
   data: CommentItem;
+  onDeleteButtonClick?(): void;
   className?: string;
 };
 export const Comment: FC<CommentProps> = (props) => {
   const {
     className,
+    onDeleteButtonClick,
     data: { name, body },
   } = props;
 
@@ -20,13 +23,27 @@ export const Comment: FC<CommentProps> = (props) => {
         <span className={styles.name}>{name}</span>:{" "}
         <span className={styles.comment}>{body}</span>
       </div>
-      <button
-        type="button"
-        className={styles.button}
-        onClick={() => prompt("Фейковый комментарий без пост запроса", "")}
-      >
-        Ответить
-      </button>
+      <div className={styles.buttons}>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => prompt("Фейковый комментарий без пост запроса", "")}
+          aria-label="reply-to-comment"
+        >
+          Ответить
+        </button>
+
+        {onDeleteButtonClick !== undefined && (
+          <button
+            type="button"
+            className={styles.button}
+            onClick={onDeleteButtonClick}
+            aria-label="remove-comment"
+          >
+            Удалить
+          </button>
+        )}
+      </div>
     </div>
   );
 };

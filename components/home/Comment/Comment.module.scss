@@ -12,12 +12,18 @@
   font-weight: vars.$fontWeightMedium;
 }
 
+.buttons {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
 .button {
   @include utils.set-transition(color);
 
   color: rgba(vars.$color-black, 0.7);
   font-weight: vars.$fontWeightMedium;
-  margin-top: 8px;
 
   @include media.no-touch-hover {
     color: vars.$color-black;

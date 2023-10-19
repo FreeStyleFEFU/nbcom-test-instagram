@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 
 import { PhotoItem } from "@/domains/posts";
@@ -13,6 +13,8 @@ import { Spinner } from "@/components/common/Spinner/Spinner";
 import { Comment } from "@/components/home/Comment/Comment";
 
 import styles from "./PhotoDetails.module.scss";
+import { useStore } from "effector-react";
+import { $app, setMyComments } from "@/stores/app";
 
 type PhotoDetailsProps = {
   data: PhotoItem;
@@ -26,9 +28,44 @@ export const PhotoDetails: FC<PhotoDetailsProps> = (props) => {
     data: { id, title, url },
   } = props;
 
+  const { myComments = [] } = useStore($app);
+
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [isCommentsFetched, setIsCommentsFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const myComment = useMemo(
+    () => myComments.find((myComment) => myComment.postId === id) ?? null,
+    [myComments, id],
+  );
+
+  const addComment = () => {
+    const comment = prompt("Введите комментарий", "");
+
+    if (comment === null || comment.length === 0) return;
+
+    const commentItem: CommentItem = {
+      id: 0,
+      postId: id,
+      name: "Я",
+      body: comment,
+      email: "kek@lol.arbidol",
+    };
+
+    setMyComments([...myComments, commentItem]);
+  };
+
+  const removeComment = () => {
+    const myCommentIndex = myComments.findIndex(
+      (myComment) => myComment.postId === id,
+    );
+
+    if (myCommentIndex < 0) return;
+
+    const newMyComments = myComments.toSpliced(myCommentIndex, 1);
+
+    setMyComments(newMyComments);
+  };
 
   const fetchComments = () => {
     if (isLoading) return;
@@ -76,10 +113,29 @@ export const PhotoDetails: FC<PhotoDetailsProps> = (props) => {
           <Spinner size="large" classes={{ root: styles.spinner }} />
         )}
 
-        {isCommentsFetched && comments.length === 0 && "Комментарии отсуствуют"}
+        {isCommentsFetched &&
+          comments.length === 0 &&
+          myComment === null &&
+          "Комментарии отсуствуют"}
 
-        {comments.length > 0 && (
+        {myComment === null && (
+          <button
+            type="button"
+            aria-label="add-comment"
+            className={styles.addCommentButton}
+            onClick={addComment}
+          >
+            Добавить комментарий
+          </button>
+        )}
+
+        {(comments.length > 0 || myComment !== null) && (
           <ul className={styles.comments}>
+            {myComment !== null && (
+              <li key="my-comment" className={styles.comment}>
+                <Comment data={myComment} onDeleteButtonClick={removeComment} />
+              </li>
+            )}
             {comments.map((comment) => (
               <li key={comment.id} className={styles.comment}>
                 <Comment data={comment} />

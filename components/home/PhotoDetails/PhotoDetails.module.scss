@@ -2,6 +2,8 @@
 @use '../../../styles/variables' as vars;
 @use '../../../styles/utils' as utils;
 
+$gap: 16px;
+
 .root {
   background-color: white;
   display: flex;
@@ -66,7 +68,7 @@
 
 .comment {
   &:not(:first-child) {
-    margin-top: 16px;
+    margin-top: $gap;
   }
 }
 
@@ -75,4 +77,16 @@
   left: 50%;
   top: 50px;
   transform: translateX(-50%);
+}
+
+.addCommentButton {
+  @include utils.set-transition(color);
+
+  color: rgba(vars.$color-pink, 0.7);
+  font-weight: vars.$fontWeightBold;
+  margin-bottom: $gap;
+
+  @include media.no-touch-hover {
+    color: vars.$color-pink;
+  }
 }
