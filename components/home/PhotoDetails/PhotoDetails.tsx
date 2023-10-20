@@ -115,10 +115,9 @@ export const PhotoDetails: FC<PhotoDetailsProps> = (props) => {
             <Spinner size="large" classes={{ root: styles.spinner }} />
           )}
 
-          {isCommentsFetched &&
-            comments.length === 0 &&
-            myComment === null &&
-            "Комментарии отсутствуют"}
+          {isCommentsFetched && comments.length === 0 && myComment === null && (
+            <p>Комментарии отсутствуют</p>
+          )}
 
           {myComment === null && (
             <button
