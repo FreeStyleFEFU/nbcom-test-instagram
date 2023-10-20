@@ -27,7 +27,12 @@ export const Comment: FC<CommentProps> = (props) => {
         <button
           type="button"
           className={styles.button}
-          onClick={() => prompt("Фейковый комментарий без пост запроса", "")}
+          onClick={() =>
+            prompt(
+              "Этого комментария не будет. Работает только комментарий к посту",
+              "",
+            )
+          }
           aria-label="reply-to-comment"
         >
           Ответить

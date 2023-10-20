@@ -7,4 +7,8 @@
     margin-left: auto;
     padding-inline: vars.$container-padding-horizontal;
     max-width: vars.$container-max-width;
+
+    @include media.vw-small-down {
+        padding-inline: 0;
+    }
 }
