@@ -15,6 +15,7 @@ import { Comment } from "@/components/home/Comment/Comment";
 import styles from "./PhotoDetails.module.scss";
 import { useStore } from "effector-react";
 import { $app, setMyComments } from "@/stores/app";
+import { Container } from "@/components/common/Container/Container";
 
 type PhotoDetailsProps = {
   data: PhotoItem;
@@ -87,63 +88,68 @@ export const PhotoDetails: FC<PhotoDetailsProps> = (props) => {
 
   return (
     <article className={clsx(styles.root, className)}>
-      <header className={styles.header}>
-        <button
-          type="button"
-          className={styles.backButton}
-          aria-label="go-to-back"
-          onClick={onBackButtonClick}
-        >
-          &#60;
-        </button>
-
-        <h3 title={title} className={styles.title}>
-          {title}
-        </h3>
-      </header>
-
-      <Picture
-        classes={{ picture: styles.picture, image: styles.image }}
-        src={url}
-        alt={title}
-      />
-
-      <div className={styles.commentsContainer}>
-        {isLoading && (
-          <Spinner size="large" classes={{ root: styles.spinner }} />
-        )}
-
-        {isCommentsFetched &&
-          comments.length === 0 &&
-          myComment === null &&
-          "Комментарии отсуствуют"}
-
-        {myComment === null && (
+      <Container className={styles.container} hasNotPaddingsOnMobile>
+        <header className={styles.header}>
           <button
             type="button"
-            aria-label="add-comment"
-            className={styles.addCommentButton}
-            onClick={addComment}
+            className={styles.backButton}
+            aria-label="go-to-back"
+            onClick={onBackButtonClick}
           >
-            Добавить комментарий
+            &#60;
           </button>
-        )}
 
-        {(comments.length > 0 || myComment !== null) && (
-          <ul className={styles.comments}>
-            {myComment !== null && (
-              <li key="my-comment" className={styles.comment}>
-                <Comment data={myComment} onDeleteButtonClick={removeComment} />
-              </li>
-            )}
-            {comments.map((comment) => (
-              <li key={comment.id} className={styles.comment}>
-                <Comment data={comment} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+          <h3 title={title} className={styles.title}>
+            {title}
+          </h3>
+        </header>
+
+        <Picture
+          classes={{ picture: styles.picture, image: styles.image }}
+          src={url}
+          alt={title}
+        />
+
+        <div className={styles.commentsContainer}>
+          {isLoading && (
+            <Spinner size="large" classes={{ root: styles.spinner }} />
+          )}
+
+          {isCommentsFetched &&
+            comments.length === 0 &&
+            myComment === null &&
+            "Комментарии отсутствуют"}
+
+          {myComment === null && (
+            <button
+              type="button"
+              aria-label="add-comment"
+              className={styles.addCommentButton}
+              onClick={addComment}
+            >
+              Добавить комментарий
+            </button>
+          )}
+
+          {(comments.length > 0 || myComment !== null) && (
+            <ul className={styles.comments}>
+              {myComment !== null && (
+                <li key="my-comment" className={styles.comment}>
+                  <Comment
+                    data={myComment}
+                    onDeleteButtonClick={removeComment}
+                  />
+                </li>
+              )}
+              {comments.map((comment) => (
+                <li key={comment.id} className={styles.comment}>
+                  <Comment data={comment} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </Container>
     </article>
   );
 };
