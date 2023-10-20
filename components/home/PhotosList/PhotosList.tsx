@@ -106,7 +106,6 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
 
       {/* В тз было написано не использовать либы для блокировки скролла */}
       {/* По-хорошему тут бы модалочку бахнуть, но модалки его блокируют */}
-      {/* Решил вообще либы не использовать */}
       {selectedPhoto !== null && (
         <PhotoDetails
           data={selectedPhoto}
