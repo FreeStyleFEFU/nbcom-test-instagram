@@ -9,6 +9,8 @@
     max-width: vars.$container-max-width;
 
     &.hasNotMobilePaddings {
-        padding-inline: 0;
+        @include media.vw-small-down {
+            padding-inline: 0;
+        }
     }
 }
