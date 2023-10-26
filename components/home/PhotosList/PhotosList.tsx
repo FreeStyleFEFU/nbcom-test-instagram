@@ -37,6 +37,8 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
     document.body.classList.remove(styles.isScrollBlocked);
   };
 
+  // без useCallback функции замкнутся на одном значении
+  // и будут фетчить одни и те же айтемы
   const fetchPhotos = useCallback(() => {
     if (isLoading) return;
 
