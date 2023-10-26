@@ -3,8 +3,7 @@
 
 .root {
     box-sizing: content-box;
-    margin-right: auto;
-    margin-left: auto;
+    margin-inline: auto;
     padding-inline: vars.$container-padding-horizontal;
     max-width: vars.$container-max-width;
 
