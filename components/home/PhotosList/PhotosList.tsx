@@ -37,8 +37,9 @@ export const PhotosList: FC<PhotosListProps> = (props) => {
     document.body.classList.remove(styles.isScrollBlocked);
   };
 
-  // без useCallback функции замкнутся на одном значении
-  // и будут фетчить одни и те же айтемы
+  // т.к. функции вызываются в нативном жс лисенере
+  // они не обновляются при каждом рендере
+  // useCallback нужен, чтобы функции обновлялись
   const fetchPhotos = useCallback(() => {
     if (isLoading) return;
 
